@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id       Int      @id @default(autoincrement())
+  username String   @unique
+  password String
+  role     String   // "TEACHER" or "GUARDIAN"
+}
+
+model Subject {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  chapters Chapter[]
+}
+
+model Chapter {
+  id        Int     @id @default(autoincrement())
+  title     String
+  status    String  @default("PENDING") // PENDING, COMPLETED
+  subjectId Int
+  subject   Subject @relation(fields: [subjectId], references: [id])
+  tests     Test[]
+}
+
+model Test {
+  id            Int      @id @default(autoincrement())
+  date          DateTime @default(now())
+  totalMarks    Int
+  marksObtained Int?
+  answerSheet   String?  // Image path
+  chapterId     Int
+  chapter       Chapter  @relation(fields: [chapterId], references: [id])
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  message   String
+  createdAt DateTime @default(now())
+  read      Boolean  @default(false)
+}
