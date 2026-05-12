@@ -546,8 +546,6 @@ export default function TeacherDashboard() {
                   <CalendarWidget tests={weeklyTests} />
                 </div>
               </div>
-            </div>
-          )}
 
               <hr style={{borderTop: '1px solid #E5E7EB', margin: '24px 0'}} />
               <h3 style={{fontSize: '16px', fontWeight: '600', marginBottom: '16px'}}>All Tests</h3>
